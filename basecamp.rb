@@ -161,6 +161,12 @@ class Basecamp
       request.basic_auth(@master.user, @master.password)
       @connection.request(request, body)
     end
+
+    def get(path, headers = {})
+      request = Net::HTTP::Get.new(path, headers.merge('Accept' => 'application/xml'))
+      request.basic_auth(@master.user, @master.password)
+      @connection.request(request)
+    end
   end
 
   class Resource < ActiveResource::Base #:nodoc:
@@ -460,6 +466,12 @@ class Basecamp
 
     def connection
       @connection || raise('No connection established')
+    end
+
+    def get_token
+      response = @connection.get('/me.xml')
+      xml = XmlSimple.xml_in(response.body)
+      xml['token'][0]
     end
   end
 

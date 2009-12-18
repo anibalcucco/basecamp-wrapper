@@ -4,4 +4,10 @@ This is the basecamp wrapper provided by 37Signals to access their API with a li
 
 This is useful when you only have username/password and you want to obtain the token automatically to use that in future calls.
 
+= Usage
+
+>> Basecamp.establish_connection!('<subdomain>.basecamphq.com', <username>, <password>, true)
+>> Basecamp.get_token
+=> "the token"
+
 -- Anibal Cucco

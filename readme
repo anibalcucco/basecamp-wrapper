@@ -1,0 +1,7 @@
+= Using the Basecamp API with Ruby
+
+This is the basecamp wrapper provided by 37Signals to access their API with a little change to obtain the API token.
+
+This is useful when you only have username/password and you want to obtain the token automatically to use that in future calls.
+
+-- Anibal Cucco

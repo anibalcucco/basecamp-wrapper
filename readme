@@ -1,13 +1,120 @@
-= Using the Basecamp API with Ruby
+= A Ruby library for working with the Basecamp web-services API.
 
-This is the basecamp wrapper provided by 37Signals to access their API with a little change to obtain the API token.
+For more information about the Basecamp web-services API, visit:
 
-This is useful when you only have username/password and you want to obtain the token automatically to use that in future calls.
+  http://developer.37signals.com/basecamp
 
-= Usage
+NOTE: not all of Basecamp's web-services are accessible via REST. This
+library provides access to RESTful services via ActiveResource. Services not
+yet upgraded to REST are accessed via the Basecamp class. Continue reading
+for more details.
 
->> Basecamp.establish_connection!('<subdomain>.basecamphq.com', <username>, <password>, true)
->> Basecamp.get_token
-=> "the token"
+== Establishing a Connection
 
--- Anibal Cucco
+The first thing you need to do is establish a connection to Basecamp. This
+requires your Basecamp site address and your login credentials. Example:
+
+  Basecamp.establish_connection!('you.grouphub.com', 'username', 'password')
+
+This is the same whether you're accessing using the ActiveResource interface,
+or the legacy interface.
+
+== Getting API token
+
+If you only have username/password you can get the API token to use in future calls.
+
+  Basecamp.establish_connection!('you.grouphub.com', 'username', 'password')
+  Basecamp.get_token
+
+== Using the REST interface via ActiveResource
+
+The REST interface is accessed via ActiveResource, a popular Ruby library
+that implements object-relational mapping for REST web-services. For more
+information on working with ActiveResource, see:
+
+ * http://api.rubyonrails.org/files/activeresource/README.html
+ * http://api.rubyonrails.org/classes/ActiveResource/Base.html
+
+
+=== Finding a Resource
+
+Find a specific resource using the +find+ method. Attributes of the resource
+are available as instance methods on the resulting object. For example, to
+find a message with the ID of 8675309 and access its title attribute, you
+would do the following:
+
+  m = Basecamp::Message.find(8675309)
+  m.title # => 'Jenny'
+
+To find all messages for a given project, use find(:all), passing the
+project_id as a parameter to find. Example:
+
+  messages = Basecamp::Message.find(:all, params => { :project_id => 1037 })
+  messages.size # => 25
+
+
+=== Creating a Resource
+
+Create a resource by making a new instance of that resource, setting its
+attributes, and saving it. If the resource requires a prefix to identify
+it (as is the case with resources that belong to a sub-resource, such as a
+project), it should be specified when instantiating the object. Examples:
+
+  m = Basecamp::Message.new(:project_id => 1037)
+  m.category_id = 7301
+  m.title = 'Message in a bottle'
+  m.body = 'Another lonely day, with no one here but me'
+  m.save # => true
+
+  c = Basecamp::Comment.new(:post_id => 25874)
+  c.body = 'Did you get those TPS reports?'
+  c.save # => true
+
+You can also create a resource using the +create+ method, which will create
+and save it in one step. Example:
+
+  Basecamp::TodoItem.create(:todo_list_id => 3422, :contents => 'Do it')
+
+
+=== Updating a Resource
+
+To update a resource, first find it by its id, change its attributes, and
+save it. Example:
+
+  m = Basecamp::Message.find(8675309)
+  m.body = 'Changed'
+  m.save # => true
+
+
+=== Deleting a Resource
+
+To delete a resource, use the +delete+ method with the ID of the resource
+you want to delete. Example:
+
+  Basecamp::Message.delete(1037)
+
+
+=== Attaching Files to a Resource
+
+If the resource accepts file attachments, the +attachments+ parameter should
+be an array of Basecamp::Attachment objects. Example:
+
+  a1 = Basecamp::Attachment.create('primary', File.read('primary.doc'))
+  a2 = Basecamp::Attachment.create('another', File.read('another.doc'))
+
+  m = Basecamp::Message.new(:project_id => 1037)
+  ...
+  m.attachments = [a1, a2]
+  m.save # => true
+
+
+= Using the non-REST inteface
+
+The non-REST interface is accessed via instance methods on the Basecamp
+class. Ensure you've established a connection, then create a new Basecamp
+instance and call methods on it. Object attributes are accessible as methods.
+Example:
+
+  session = Basecamp.new
+  person = session.person(93832) # => #<Record(person)..>
+  person.first_name # => "Jason"

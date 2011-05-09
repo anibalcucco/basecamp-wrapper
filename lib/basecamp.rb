@@ -18,14 +18,14 @@ ERROR
 end
 
 begin
-  require 'activeresource'
+  require 'active_resource'
 rescue LoadError
   begin
     require 'rubygems'
-    require 'activeresource'
+    require 'active_resource'
   rescue LoadError
     abort <<-ERROR
-The 'activeresource' library could not be loaded. If you have RubyGems 
+The 'active_resource' library could not be loaded. If you have RubyGems 
 installed you can install ActiveResource by doing "gem install activeresource".
 ERROR
   end
@@ -147,7 +147,7 @@ end
 #   person = session.person(93832) # => #<Record(person)..>
 #   person.first_name # => "Jason"
 #
-class Basecamp
+module Basecamp
   class Connection #:nodoc:
     def initialize(master)
       @master = master

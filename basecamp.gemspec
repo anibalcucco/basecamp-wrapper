@@ -2,7 +2,7 @@ require 'rubygems'
 
 Gem::Specification.new do |gem|
   gem.name = 'basecamp'
-  gem.version = '0.0.2'
+  gem.version = '0.0.3'
   gem.summary = %Q{Basecamp API wrapper.}
   gem.description = %Q{Basecamp API wrapper.}
   gem.email = "nobody@gmail.com"
@@ -12,6 +12,7 @@ Gem::Specification.new do |gem|
   gem.files = Dir.glob("{lib}/**/*") + %w(readme)
   
   gem.add_dependency  'oauth2',     '~> 0.0.8'
+  gem.add_dependency  'xml-simple'
   
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'mg',        '~> 0.0.8'

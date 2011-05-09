@@ -18,11 +18,11 @@ ERROR
 end
 
 begin
-  require 'activeresource'
+  require 'active_resource'
 rescue LoadError
   begin
     require 'rubygems'
-    require 'activeresource'
+    require 'active_resource'
   rescue LoadError
     abort <<-ERROR
 The 'activeresource' library could not be loaded. If you have RubyGems 

@@ -1,0 +1,10 @@
+## MAC OS
+.DS_Store
+
+## TEXTMATE
+*.tmproj
+tmtags
+
+## PROJECT
+dist
+.bundle

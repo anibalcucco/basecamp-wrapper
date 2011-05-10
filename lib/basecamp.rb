@@ -3,34 +3,6 @@ require 'yaml'
 require 'date'
 require 'time'
 
-begin
-  require 'xmlsimple'
-rescue LoadError
-  begin
-    require 'rubygems'
-    require 'xmlsimple'
-  rescue LoadError
-    abort <<-ERROR
-The 'xml-simple' library could not be loaded. If you have RubyGems installed
-you can install xml-simple by doing "gem install xml-simple".
-ERROR
-  end
-end
-
-begin
-  require 'active_resource'
-rescue LoadError
-  begin
-    require 'rubygems'
-    require 'active_resource'
-  rescue LoadError
-    abort <<-ERROR
-The 'active_resource' library could not be loaded. If you have RubyGems 
-installed you can install ActiveResource by doing "gem install activeresource".
-ERROR
-  end
-end
-
 module Basecamp
   class Connection #:nodoc:
     def initialize(master)

@@ -9,10 +9,11 @@ Gem::Specification.new do |gem|
   gem.homepage = "http://github.com/anibalcucco/basecamp-wrapper"
   gem.authors = ['Anibal Cucco', 'James A. Rosen']
   
-  gem.files = Dir.glob("{lib}/**/*") + %w(readme)
+  gem.files = Dir.glob("{lib}/**/*") + %w(README.rdoc)
   
-  gem.add_dependency  'oauth2',     '~> 0.0.8'
+  gem.add_dependency  'oauth2', '~> 0.0.8'
   gem.add_dependency  'xml-simple'
+  gem.add_dependency  'activerecord'
   
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'mg',        '~> 0.0.8'

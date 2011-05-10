@@ -4,6 +4,10 @@ For more information about the Basecamp web-services API, visit:
 
   http://developer.37signals.com/basecamp
 
+You can find the original code in:
+
+  http://developer.37signals.com/basecamp/basecamp.rb
+
 NOTE: not all of Basecamp's web-services are accessible via REST. This
 library provides access to RESTful services via ActiveResource. Services not
 yet upgraded to REST are accessed via the Basecamp class. Continue reading
@@ -118,3 +122,9 @@ Example:
   session = Basecamp.new
   person = session.person(93832) # => #<Record(person)..>
   person.first_name # => "Jason"
+
+== Contributors
+
+* jamesarosen
+* defeated
+* justinbarry

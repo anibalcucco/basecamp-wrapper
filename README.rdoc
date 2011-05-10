@@ -13,6 +13,10 @@ library provides access to RESTful services via ActiveResource. Services not
 yet upgraded to REST are accessed via the Basecamp class. Continue reading
 for more details.
 
+== Installation
+
+  gem install basecamp
+
 == Establishing a Connection
 
 The first thing you need to do is establish a connection to Basecamp. This

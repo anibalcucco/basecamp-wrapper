@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    basecamp (0.0.5)
+    basecamp (0.0.6)
       activeresource (>= 2.3.0)
       oauth2
       xml-simple

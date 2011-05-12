@@ -40,13 +40,6 @@ requires your Basecamp site address and your login credentials. Example:
 This is the same whether you're accessing using the ActiveResource interface,
 or the legacy interface.
 
-== Getting API token
-
-If you only have username/password you can get the API token to use in future calls.
-
-  Basecamp.establish_connection!('you.grouphub.com', 'username', 'password')
-  Basecamp.get_token
-
 == Using the REST interface via ActiveResource
 
 The REST interface is accessed via ActiveResource, a popular Ruby library
@@ -55,7 +48,6 @@ information on working with ActiveResource, see:
 
  * http://api.rubyonrails.org/files/activeresource/README.html
  * http://api.rubyonrails.org/classes/ActiveResource/Base.html
-
 
 === Finding a Resource
 
@@ -73,6 +65,21 @@ project_id as a parameter to find. Example:
   messages = Basecamp::Message.find(:all, params => { :project_id => 1037 })
   messages.size # => 25
 
+To get the current logged in user:
+
+  Basecamp::Person.me
+
+Note: You can access the API token using this object. This is useful if you only have username/password and you want to use the API token in future calls:
+
+  Basecamp::Person.me.token
+
+To get all people by company:
+
+  Basecamp::Person.find(:all, :params => {:company_id => company.id})
+
+To get all people by project:
+
+  Basecamp::Person.find(:all, :params => {:project_id => project.id})
 
 === Creating a Resource
 
@@ -128,20 +135,29 @@ be an array of Basecamp::Attachment objects. Example:
   m.attachments = [a1, a2]
   m.save # => true
 
+=== Milestones
 
-= Using the non-REST inteface
+Is not implemented as an active resource, it uses the non-REST interface.
+Browse the source (lib/basecamp/resources/milestone) to see all available methods.
 
-The non-REST interface is accessed via instance methods on the Basecamp
-class. Ensure you've established a connection, then create a new Basecamp
-instance and call methods on it. Object attributes are accessible as methods.
-Example:
+For example, to list all milestones in a project:
 
-  session = Basecamp.new
-  person = session.person(93832) # => #<Record(person)..>
+  milestones = Basecamp::Milestone.list(1037)
+  milestones.first.title # => "The Milestone"
+
+= Using the non-REST interface
+
+You can access other resources not included in this wrapper yet using "record" and "records".
+
+  person = Basecamp.record("/contacts/person/93832")
   person.first_name # => "Jason"
+
+  people_in_company = Basecamp.records("person", "/contacts/people/85")
+  people_in_company.first.first_name # => "Jason"
 
 == Contributors
 
 * jamesarosen
 * defeated
 * justinbarry
+* fmiopensource

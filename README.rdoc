@@ -15,7 +15,20 @@ for more details.
 
 == Installation
 
+Install the gem
+
   gem install basecamp
+
+Include the system gems and require the library in your script
+
+  require 'rubygems'
+  require 'basecamp'
+
+=== Dependencies
+
+  * activeresource >= 2.3.0
+  * xml-simple
+  * oauth2
 
 == Establishing a Connection
 

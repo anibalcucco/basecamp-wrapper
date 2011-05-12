@@ -2,6 +2,8 @@ require 'net/https'
 require 'yaml'
 require 'date'
 require 'time'
+require 'active_resource'
+require 'xmlsimple'
 
 module Basecamp
   class Connection #:nodoc:

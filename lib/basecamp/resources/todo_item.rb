@@ -1,5 +1,5 @@
 module Basecamp; class TodoItem < Basecamp::Resource
-  parent_resources :todo_list
+  #parent_resources :todo_list
 
   def todo_list(options = {})
     @todo_list ||= TodoList.find(todo_list_id, options)

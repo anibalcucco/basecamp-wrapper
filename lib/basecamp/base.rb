@@ -12,6 +12,7 @@ module Basecamp
       Resource.user = user
       Resource.password = password
       Resource.site = (use_ssl ? "https" : "http") + "://" + site
+      Resource.format = :xml
 
       @connection = Connection.new(self)
     end

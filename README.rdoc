@@ -35,7 +35,7 @@ Include the system gems and require the library in your script
 The first thing you need to do is establish a connection to Basecamp. This
 requires your Basecamp site address and your login credentials. Example:
 
-  Basecamp.establish_connection!('you.grouphub.com', 'username', 'password')
+  Basecamp.establish_connection!('yoururl.basecamphq.com', 'APITOKEN', 'X', true)
 
 This is the same whether you're accessing using the ActiveResource interface,
 or the legacy interface.

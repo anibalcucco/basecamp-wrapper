@@ -8,3 +8,5 @@ tmtags
 ## PROJECT
 dist
 .bundle
+
+.svn

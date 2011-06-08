@@ -1,6 +1,6 @@
 module Basecamp; class Message < Basecamp::Resource
   parent_resources :project
-  set_element_name 'post'
+  self.element_name = 'post'
 
   # Returns the most recent 25 messages in the given project (and category,
   # if specified). If you need to retrieve older messages, use the archive

@@ -21,10 +21,10 @@ module Basecamp; class Message < Basecamp::Resource
   #   Basecamp::Message.archive(1037, :category_id => 7301)
   #
   def self.archive(project_id, options = {})
-    find(:all, :params => options.merge(:project_id => project_id), :from => :archive)
+    all(:params => options.merge(:project_id => project_id), :from => :archive)
   end
 
   def comments(options = {})
-    @comments ||= Comment.find(:all, :params => options.merge(:post_id => id))
+    @comments ||= Comment.all(:params => options.merge(:post_id => id))
   end
 end; end

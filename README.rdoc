@@ -33,9 +33,19 @@ Include the system gems and require the library in your script
 == Establishing a Connection
 
 The first thing you need to do is establish a connection to Basecamp. This
-requires your Basecamp site address and your login credentials. Example:
+requires your Basecamp site address and your login credentials or API token.
 
-  Basecamp.establish_connection!('you.grouphub.com', 'username', 'password')
+=== Using username and password
+
+  Basecamp.establish_connection!('yoururl.basecamphq.com', 'username', 'password')
+
+=== Using API token (My Info -> Show your tokens)
+
+  Basecamp.establish_connection!('yoururl.basecamphq.com', 'APITOKEN', 'X')
+
+=== With a Basecamp account that use SSL (https://yoururl.basecamphq.com)
+
+  Basecamp.establish_connection!('yoururl.basecamphq.com', 'APITOKEN', 'X', true)
 
 This is the same whether you're accessing using the ActiveResource interface,
 or the legacy interface.

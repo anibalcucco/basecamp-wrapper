@@ -9,8 +9,6 @@
 #   c.save # => true
 #
 module Basecamp; class Category < Basecamp::Resource
-  parent_resources :project
-
   def self.all(project_id, options = {})
     find(:all, :params => options.merge(:project_id => project_id))
   end

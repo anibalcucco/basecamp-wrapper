@@ -4,10 +4,6 @@ module Basecamp; class Resource < ActiveResource::Base
       @parent_resources = parents
     end
 
-    def element_name
-      name.split(/::/).last.underscore
-    end
-
     def prefix_source
       if @parent_resources
         @parent_resources.map { |resource| "/#{resource.to_s.pluralize}/:#{resource}_id" }.join + '/'
@@ -17,6 +13,7 @@ module Basecamp; class Resource < ActiveResource::Base
     end
 
     def prefix(options = {})
+      puts options.inspect
       if options.any?
         options.map { |name, value| "/#{name.to_s.chomp('_id').pluralize}/#{value}" }.join + '/'
       else
@@ -25,7 +22,7 @@ module Basecamp; class Resource < ActiveResource::Base
     end
   end
 
-  def prefix_options
+  def prefix_optionsa
     id ? {} : super
   end
 end; end

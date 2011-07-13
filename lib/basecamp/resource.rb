@@ -23,6 +23,18 @@ module Basecamp; class Resource < ActiveResource::Base
         '/'
       end
     end
+
+    def all(options = {})
+      find(:all, options)
+    end
+
+    def first(options = {})
+      find(:first, options)
+    end
+
+    def last(options = {})
+      find(:last, options)
+    end
   end
 
   def prefix_options

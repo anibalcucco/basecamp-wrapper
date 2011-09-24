@@ -155,6 +155,24 @@ For example, to list all milestones in a project:
   milestones = Basecamp::Milestone.list(1037)
   milestones.first.title # => "The Milestone"
 
+=== More about Todo Items
+
+To access all todo items in a todo list:
+
+  Basecamp::TodoItem.find(:all, :params => { :todo_list_id => 3422 })
+
+You can't access all todo items in a project with a single API call.
+So you have to do something like this:
+
+  def todo_items_on_project(project_id)
+    todo_items = []
+    todo_lists = TodoList.find(:all, :params => { :project_id => project_id })
+    todo_lists.each do |todo_list|
+      todo_items += TodoItem.find(:all, :params => { :todo_list_id => todo_list.id })
+    end
+    todo_items
+  end
+
 = Using the non-REST interface
 
 You can access other resources not included in this wrapper yet using "record" and "records".

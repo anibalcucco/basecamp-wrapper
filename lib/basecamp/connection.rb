@@ -6,10 +6,12 @@ module Basecamp; class Connection
     @connection.verify_mode = OpenSSL::SSL::VERIFY_NONE if master.use_ssl
   end
 
-  def post(path, body, headers = {})
+  def post(path, iostream, headers = {})
     request = Net::HTTP::Post.new(path, headers.merge('Accept' => 'application/xml'))
     request.basic_auth(@master.user, @master.password)
-    @connection.request(request, body)
+    request.body_stream = iostream
+    request.content_length = iostream.size
+    @connection.request(request)
   end
 
   def get(path, headers = {})

@@ -137,13 +137,18 @@ you want to delete. Example:
 If the resource accepts file attachments, the +attachments+ parameter should
 be an array of Basecamp::Attachment objects. Example:
 
-  a1 = Basecamp::Attachment.create('primary', File.read('primary.doc'))
-  a2 = Basecamp::Attachment.create('another', File.read('another.doc'))
+  f1 = File.open('primary.doc')
+  s1 = StringIO('a string')
+
+  a1 = Basecamp::Attachment.create('primary', f1)
+  a2 = Basecamp::Attachment.create('another', s1))
 
   m = Basecamp::Message.new(:project_id => 1037)
   ...
   m.attachments = [a1, a2]
   m.save # => true
+
+  f1.close
 
 === Milestones
 

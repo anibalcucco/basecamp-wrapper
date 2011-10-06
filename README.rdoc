@@ -138,7 +138,7 @@ If the resource accepts file attachments, the +attachments+ parameter should
 be an array of Basecamp::Attachment objects. Example:
 
   f1 = File.open('primary.doc')
-  s1 = StringIO('a string')
+  s1 = StringIO.new('a string')
 
   a1 = Basecamp::Attachment.create('primary', f1)
   a2 = Basecamp::Attachment.create('another', s1))

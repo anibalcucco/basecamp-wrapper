@@ -1,5 +1,5 @@
 module Basecamp; class Attachment
-  attr_accessor :id, :filename, :content
+  attr_accessor :id, :filename, :content, :category_id
 
   def self.create(filename, content)
     returning new(filename, content) do |attachment|
@@ -16,7 +16,7 @@ module Basecamp; class Attachment
   end
 
   def to_xml(options = {})
-    { :file => attributes }.to_xml(options)
+    { :file => attributes, :category_id => category_id }.to_xml(options)
   end
 
   def inspect

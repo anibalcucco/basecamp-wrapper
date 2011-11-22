@@ -16,6 +16,9 @@ module Basecamp; class Resource < ActiveResource::Base
       end
     end
 
+    def check_prefix_options(options)
+    end
+
     def prefix(options = {})
       if options.any?
         options.map { |name, value| "/#{name.to_s.chomp('_id').pluralize}/#{value}" }.join + '/'

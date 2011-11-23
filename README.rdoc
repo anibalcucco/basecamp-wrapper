@@ -188,6 +188,14 @@ You can access other resources not included in this wrapper yet using "record" a
   people_in_company = Basecamp.records("person", "/contacts/people/85")
   people_in_company.first.first_name # => "Jason"
 
+= Using json as the default format
+
+By default the wrapper will use :xml for the active record connection but you can set :json as the default format:
+
+  Basecamp.establish_connection!('yoururl.basecamphq.com', 'APITOKEN', 'X', true, false)
+
+Note: We recommend using xml. There are some API calls that don't behave well with json.
+
 == Contributors
 
 * jamesarosen

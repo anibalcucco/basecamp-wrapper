@@ -25,7 +25,7 @@ module Basecamp
     # Make a raw web-service request to Basecamp. This will return a Hash of
     # Arrays of the response, and may seem a little odd to the uninitiated.
     def request(path, parameters = {})
-      response = Basecamp.connection.post(path, convert_body(parameters), "Content-Type" => content_type)
+      response = Basecamp.connection.post(path, StringIO.new(convert_body(parameters)), "Content-Type" => content_type)
 
       if response.code.to_i / 100 == 2
         result = XmlSimple.xml_in(response.body, 'keeproot' => true, 'contentkey' => '__content__', 'forcecontent' => true)

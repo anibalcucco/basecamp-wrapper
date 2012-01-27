@@ -4,10 +4,6 @@ module Basecamp; class Resource < ActiveResource::Base
       @parent_resources = parents
     end
 
-    def element_name
-      name.split(/::/).last.underscore
-    end
-
     def prefix_source
       if @parent_resources
         @parent_resources.map { |resource| "/#{resource.to_s.pluralize}/:#{resource}_id" }.join + '/'

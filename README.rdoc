@@ -203,6 +203,33 @@ You can acces the last response object:
   Basecamp::Message.find(:all, params => { :project_id => 1037 })
   Basecamp::Message.connection.response["status"] # => "200 OK"
 
+= Using the raw response body
+
+This is useful for example to get pagination data to access all comments in a commentable resource: https://github.com/37signals/basecamp-classic-api/blob/master/sections/comments.md#get-recent-comments-for-a-commentable-resource
+
+  def get_threshold
+    # Get the last response object
+    response = Basecamp::Comment.connection.response
+    # Parse the xml
+    xml = XmlSimple.xml_in(response.body)
+    # continued-at is an attribute specifying the path where the next oldest 75 comments can be retrieved
+    if continued_at = xml["continued-at"]
+      # There are more comments
+      # We need to extract the threshold parameter from the continued-at url
+      hash = CGI::parse(URI.parse(continued_at).query)
+      hash["threshold"].first
+    else
+      # We're done
+      nil
+    end
+  end
+
+  comments = Basecamp::Comment.find(:all, :params => { :post_id => 1037 })
+  if threshold = get_threshold
+    # Get the next set of comments using the threshold
+    Basecamp::Comment.find(:all, :params => { :post_id => 1037, :threshold => threshold })
+  end
+
 == Contributors
 
 * jamesarosen

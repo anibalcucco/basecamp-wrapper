@@ -7,6 +7,7 @@ require 'xmlsimple'
 
 require 'basecamp/base'
 require 'basecamp/connection'
+require 'basecamp/active_resource'
 require 'basecamp/hash'
 require 'basecamp/record'
 require 'basecamp/resource'

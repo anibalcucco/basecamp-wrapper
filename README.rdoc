@@ -196,6 +196,13 @@ By default the wrapper will use :xml for the active record connection but you ca
 
 Note: We recommend using xml. There are some API calls that don't behave well with json.
 
+= Access active resource response object
+
+You can acces the last response object:
+
+  Basecamp::Message.find(:all, params => { :project_id => 1037 })
+  Basecamp::Message.connection.response["status"] # => "200 OK"
+
 == Contributors
 
 * jamesarosen

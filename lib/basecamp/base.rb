@@ -1,19 +1,34 @@
 module Basecamp
   class << self
     attr_accessor :use_xml
-    attr_reader :site, :user, :password, :use_ssl
+    attr_reader :site, :user, :password, :use_ssl, :use_oauth, :access_token
 
     def establish_connection!(site, user, password, use_ssl = false, use_xml = true)
-      @site     = site
-      @user     = user
-      @password = password
-      @use_ssl  = use_ssl
-      @use_xml  = use_xml
+      @site       = site
+      @user       = user
+      @password   = password
+      @use_ssl    = use_ssl
+      @use_xml    = use_xml
+      @use_oauth  = false
 
       Resource.user     = user
       Resource.password = password
       Resource.site     = (use_ssl ? "https" : "http") + "://" + site
       Resource.format   = (use_xml ? :xml : :json)
+
+      @connection = Connection.new(self)
+    end
+
+    def establish_oauth_connection!(site, access_token, use_ssl = false, use_xml = true)
+      @site         = site
+      @use_ssl      = use_ssl
+      @use_xml      = use_xml
+      @use_oauth    = true
+      @access_token = access_token
+
+      Resource.site         = (use_ssl ? "https" : "http") + "://" + site
+      Resource.format       = (use_xml ? :xml : :json)
+      Resource.connection.set_header('Authorization', "Bearer #{access_token}")
 
       @connection = Connection.new(self)
     end
@@ -25,7 +40,9 @@ module Basecamp
     # Make a raw web-service request to Basecamp. This will return a Hash of
     # Arrays of the response, and may seem a little odd to the uninitiated.
     def request(path, parameters = {})
-      response = Basecamp.connection.post(path, StringIO.new(convert_body(parameters)), "Content-Type" => content_type)
+      headers = {'Content-Type' => content_type}
+      headers.merge!('Authorization' => "Bearer #{@access_token}") if @use_oauth
+      response = Basecamp.connection.post(path, StringIO.new(convert_body(parameters)), headers)
 
       if response.code.to_i / 100 == 2
         return {} if response.body.blank?

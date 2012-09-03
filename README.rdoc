@@ -42,7 +42,7 @@ requires your Basecamp site address and your login credentials or API token.
 === Using API token (My Info -> Show your tokens)
 
   Basecamp.establish_connection!('yoururl.basecamphq.com', 'APITOKEN', 'X')
-  
+
 === Using OAuth access token
 
   Basecamp.establish_oauth_connection!('yoururl.basecamphq.com', 'oauth_access_token')
@@ -50,6 +50,8 @@ requires your Basecamp site address and your login credentials or API token.
 === With a Basecamp account that use SSL (https://yoururl.basecamphq.com)
 
   Basecamp.establish_connection!('yoururl.basecamphq.com', 'APITOKEN', 'X', true)
+
+  Basecamp.establish_oauth_connection!('yoururl.basecamphq.com', 'oauth_access_token', true)
 
 This is the same whether you're accessing using the ActiveResource interface,
 or the legacy interface.

@@ -65,6 +65,22 @@ information on working with ActiveResource, see:
  * http://api.rubyonrails.org/files/activeresource/README.html
  * http://api.rubyonrails.org/classes/ActiveResource/Base.html
 
+== Basecamp API rate limit and app identification
+
+If your app creates a lot of requests, you may hit the (new) basecamp rate limit. ({read more here about rate limiting}[https://github.com/basecamp/basecamp-classic-api#rate-limiting]).
+
+To raise your limit you can send a custom user-agent to basecamp with your identifying information ({read more here}[https://github.com/basecamp/basecamp-classic-api#rate-limiting]).
+
+For this you need to create an initializer in your rails application, for example: +config/inititalizer/basecamp_user_agent.rb+ with the following line:
+
+  ActiveResource::Base.headers["User-Agent"] = "Fabian's Ingenious Integration (fabian@example.com)"
+
+This initializer ensures that all requests made through ActiveResource (which this gem uses) are identifiable with your information.
+
+**NOTE**: If you are using ActiveResource for accessing multiple APIs at once and not only basecamp's, you will need the following initializer instead:
+
+  Basecamp::Resource.headers["User-Agent"] = "Fabian's Ingenious Integration (fabian@example.com)"
+
 === Finding a Resource
 
 Find a specific resource using the +find+ method. Attributes of the resource

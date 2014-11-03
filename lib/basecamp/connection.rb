@@ -9,6 +9,7 @@ module Basecamp; class Connection
   def post(path, iostream, headers = {})
     request = Net::HTTP::Post.new(path, headers.merge('Accept' => 'application/xml'))
     request.basic_auth(@master.user, @master.password) unless @master.use_oauth
+    request.initialize_http_header(@master.class.headers)
     request.body_stream = iostream
     request.content_length = iostream.size
     @connection.request(request)
@@ -16,6 +17,7 @@ module Basecamp; class Connection
 
   def get(path, headers = {})
     request = Net::HTTP::Get.new(path, headers.merge('Accept' => 'application/xml'))
+    request.initialize_http_header(@master.class.headers)
     request.basic_auth(@master.user, @master.password) unless @master.use_oauth
     @connection.request(request)
   end

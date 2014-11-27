@@ -42,6 +42,8 @@ module Basecamp
     def request(path, parameters = {})
       headers = { "Content-Type" => content_type }
       headers.merge!('Authorization' => "Bearer #{@access_token}") if @use_oauth
+      headers.merge!(Resource.headers) if Resource.headers.present?
+
       if parameters.empty?
         response = Basecamp.connection.get(path, headers)
       else

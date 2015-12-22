@@ -200,6 +200,16 @@ So you have to do something like this:
     todo_items
   end
 
+=== Time entries
+
+There are two ways to create time-entries
+
+  # TodoItem as Parent Resource
+  Basecamp::TimeEntry.create(:todo_item_id => item_id, :date => date, :person_id => person_id, :hours => hours, :description => '')
+  # Project as Parent Resource
+    Basecamp::TimeEntry.create(:project_id => project_id, :date => date, :person_id => person_id, :hours => hours, :description => '')
+
+
 = Using the non-REST interface
 
 You can access other resources not included in this wrapper yet using "record" and "records".

@@ -47,11 +47,19 @@ requires your Basecamp site address and your login credentials or API token.
 
   Basecamp.establish_oauth_connection!('yoururl.basecamphq.com', 'oauth_access_token')
 
-=== With a Basecamp account that use SSL (https://yoururl.basecamphq.com)
+=== Using SSL/Non SSL basecamp accounts (https://yoururl.basecamphq.com)
 
-  Basecamp.establish_connection!('yoururl.basecamphq.com', 'APITOKEN', 'X', true)
+Basecamp uses SSL in all accounts so that's the default value here for establish_connection!. This will use https for the connection:
 
-  Basecamp.establish_oauth_connection!('yoururl.basecamphq.com', 'oauth_access_token', true)
+  Basecamp.establish_connection!('yoururl.basecamphq.com', 'APITOKEN', 'X')
+
+  Basecamp.establish_oauth_connection!('yoururl.basecamphq.com', 'oauth_access_token')
+
+But if for some reason your basecamp account doesn't use SSL, you can disable with:
+
+  Basecamp.establish_connection!('yoururl.basecamphq.com', 'APITOKEN', 'X', false)
+
+  Basecamp.establish_oauth_connection!('yoururl.basecamphq.com', 'oauth_access_token', false)
 
 This is the same whether you're accessing using the ActiveResource interface,
 or the legacy interface.

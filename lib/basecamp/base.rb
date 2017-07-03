@@ -3,7 +3,7 @@ module Basecamp
     attr_accessor :use_xml
     attr_reader :site, :user, :password, :use_ssl, :use_oauth, :access_token
 
-    def establish_connection!(site, user, password, use_ssl = false, use_xml = true)
+    def establish_connection!(site, user, password, use_ssl = true, use_xml = true)
       @site       = site
       @user       = user
       @password   = password
@@ -19,7 +19,7 @@ module Basecamp
       @connection = Connection.new(self)
     end
 
-    def establish_oauth_connection!(site, access_token, use_ssl = false, use_xml = true)
+    def establish_oauth_connection!(site, access_token, use_ssl = true, use_xml = true)
       @site         = site
       @use_ssl      = use_ssl
       @use_xml      = use_xml

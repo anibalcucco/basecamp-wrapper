@@ -18,4 +18,8 @@ module Basecamp; class TodoItem < Basecamp::Resource
   def uncomplete!
     put(:uncomplete)
   end
+
+  def prefix_options
+    { :todo_list_id => todo_list_id }
+  end
 end; end

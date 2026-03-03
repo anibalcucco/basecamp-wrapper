@@ -17,7 +17,7 @@ for more details.
 
 Install the gem
 
-  gem install basecamp
+  gem install basecamp-classic
 
 Include the system gems and require the library in your script
 
